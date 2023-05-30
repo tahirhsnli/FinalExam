@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+@model Setting
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Setting</h4>
+            <p class="card-description">
+                Edit
+            </p>
+            <form class="forms-sample" asp-action="Edit" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Value"></label>
+                    <input asp-for="Value" type="text" class="form-control" placeholder="Value">
+                    <span asp-validation-for="Value"></span>
+                </div>
+                <div asp-validation-summary="ModelOnly"></div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button class="btn btn-light"><a asp-action="Index">Cancel</a></button>
+            </form>
+        </div>
+    </div>
+</div>

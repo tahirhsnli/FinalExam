@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    int count = 1 + (Model.Currentpage - 1) * 3;
+}
+@model PaginateVM<Team>
+<div class="d-flex justify-content-end mr-2 mb-3 btn btn-success">
+    <a asp-action="Create">Create Team</a>
+</div>
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Striped Table</h4>
+            <p class="card-description">
+                Add class <code>.table-striped</code>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Fullname
+                            </th>
+                            <th>
+                                Profession
+                            </th>
+                            <th>
+                                Image
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    @(count++)
+                                </td>
+                                <td>
+                                    @item.Fullname
+                                </td>
+                                <td>
+                                    @item.Profession.Name
+                                </td>
+                                <td class="py-1">
+                                    <img src="~/assets/img/team/@item.Image" alt="image" />
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">
+                                        Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if(Model.Currentpage != 1 && Model.Items.Count >0)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-route-page="@(Model.Currentpage-1)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    }
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.Currentpage==i?"active":"")"><a class="page-link" asp-route-page="@i">@i</a></li>
+                    }
+                    @if(Model.Currentpage != Model.PageCount && Model.Items.Count>0)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-route-page="@(Model.Currentpage+1)" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
